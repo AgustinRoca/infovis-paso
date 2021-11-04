@@ -3,178 +3,175 @@ import pandas as pd
 import plotly.express as px
 import geojson
 
-def calcular_tercera_fuerza(my_csv):
-    my_csv=my_csv.loc[(my_csv['Agrupacion'] != 'JUNTOS')& (my_csv['Agrupacion'] != 'JUNTOS POR EL CAMBIO TIERRA DEL FUEGO')
-                      & (my_csv['Agrupacion'] != 'CAMBIA SANTA CRUZ') & (my_csv['Agrupacion'] != 'JUNTOS POR EL CAMBIO JXC')& (my_csv['Agrupacion'] != 'JUNTOS SOMOS RIO NEGRO')& (my_csv['Agrupacion'] != 'JUNTOS POR EL CAMBIO +')
-                      &  (my_csv['Agrupacion'] != 'FRENTE JUNTOS POR EL CAMBIO')& (my_csv['Agrupacion'] != 'CAMBIA MENDOZA')
-                      & (my_csv['Agrupacion'] != 'CAMBIA JUJUY')& (my_csv['Agrupacion'] != 'FRENTE CIVICO POR SANTIAGO')& (my_csv['Agrupacion'] != 'UNIDOS POR SAN LUIS')& (my_csv['Agrupacion'] != 'VAMOS LA RIOJA') & (my_csv['Agrupacion'] != 'JUNTOS POR FORMOSA LIBRE') & (my_csv['Agrupacion'] != 'JUNTOS POR ENTRE RÍOS')
-                      & (my_csv['Agrupacion'] != 'CHACO CAMBIA + JUNTOS POR EL CAMBIO') & (my_csv['Agrupacion'] != 'ECO + VAMOS CORRIENTES') & (my_csv['Agrupacion'] != 'JUNTOS POR EL CAMBIO CHUBUT') & (my_csv['Agrupacion'] != 'FRENTE DE TODOS') & (my_csv['Agrupacion'] != 'NaN') & (my_csv['Agrupacion'] != "JUNTOS POR EL CAMBIO")].groupby(
-        ['Agrupacion']).sum()['votos'] \
-        .reset_index(name='votos')
+def calcular_tercera_fuerza(my_csv, nombre):
+    juntos_por_el_cambio = ['JUNTOS',
+                            'JUNTOS POR EL CAMBIO TIERRA DEL FUEGO',
+                            'CAMBIA SANTA CRUZ',
+                            'JUNTOS POR EL CAMBIO JXC',
+                            'JUNTOS SOMOS RIO NEGRO',
+                            'JUNTOS POR EL CAMBIO +',
+                            'FRENTE JUNTOS POR EL CAMBIO',
+                            'CAMBIA MENDOZA',
+                            'CAMBIA JUJUY',
+                            'UNIDOS POR SAN LUIS',
+                            'JUNTOS POR FORMOSA LIBRE',
+                            'VAMOS LA RIOJA',
+                            'JUNTOS POR ENTRE RÍOS',
+                            'CHACO CAMBIA + JUNTOS POR EL CAMBIO',
+                            'ECO + VAMOS CORRIENTES',
+                            'JUNTOS POR EL CAMBIO CHUBUT',
+                            'JUNTOS POR EL CAMBIO'
+                           ]
+
+    frente_de_todos = [ 'FRENTE DE TODOS',
+                        'FRENTE CIVICO POR SANTIAGO']
+
+    my_csv = my_csv.loc[(~my_csv['Agrupacion'].isin(juntos_por_el_cambio)) & 
+                        (~my_csv['Agrupacion'].isin(frente_de_todos)) & 
+                        (my_csv['Agrupacion'] != 'NaN')
+                       ].groupby('Agrupacion').sum()['votos'].reset_index(name='votos')
 
     my_filter = my_csv['votos'] == my_csv['votos'].max()
+    my_csv = my_csv[my_filter]
 
-    return my_csv[my_filter]
-
-#print(calcular_tercera_fuerza(df))
+    my_csv['Provincia'] = nombre
+    my_csv['votos'] = my_csv['votos'] / electores[nombre]
+    return my_csv
 
 with open("geojson/ProvinciasArgentina.geojson", encoding="utf-8") as f:
     gj = geojson.load(f)
 
-bsas = pd.read_csv("csv/Buenos Aires_0.csv", delimiter=";")
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_1_1.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_1_2.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_2.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_3_1.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_3_2.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_4.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_5.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_6.csv", delimiter=";"))
-bsas = bsas.append(pd.read_csv("csv/Buenos Aires_7.csv", delimiter=";"))
+electores = {   'Buenos Aires': 12704518,
+                'Capital Federal': 2552058,
+                'Catamarca': 327478,
+                'Chaco': 967147,
+                'Chubut': 448149,
+                'Corrientes': 894376,
+                'Córdoba': 2984631,
+                'Entre Ríos': 1112939,
+                'Formosa': 468299,
+                'Jujuy': 573326,
+                'La Pampa': 293790,
+                'La Rioja': 294509,
+                'Mendoza': 1439463,
+                'Misiones': 948500,
+                'Neuquén': 526441,
+                'Río Negro': 560880,
+                'Salta': 1051142,
+                'San Juan': 579913,
+                'San Luis': 393472,
+                'Santa Cruz': 256388,
+                'Santa Fe': 2768525,
+                'Santiago del Estero': 778455,
+                'Tierra del Fuego': 141548,
+                'Tucumán': 1267045,
+            }
 
-caba = calcular_tercera_fuerza(pd.read_csv("csv/CABA.csv", delimiter=";"))
-caba['votos'] = caba['votos'] / 2552058
-caba['Provincia'] = "Capital Federal"
-provincias = caba
+bsas = pd.read_csv("csv/Buenos Aires_0.csv", delimiter=";", dtype={'votos': int})
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_1_1.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_1_2.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_2.csv", delimiter=";", dtype={'votos': int, 'IdCircuito': str}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_3_1.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_3_2.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_4.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_5.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_6.csv", delimiter=";", dtype={'votos': int}))
+bsas = bsas.append(pd.read_csv("csv/Buenos Aires_7.csv", delimiter=";", dtype={'votos': int}))
+bsas3 = calcular_tercera_fuerza(bsas, 'Buenos Aires')
+provincias = bsas3
+print(bsas)
+
+caba = calcular_tercera_fuerza(pd.read_csv("csv/CABA.csv", delimiter=";", dtype={'votos': int}), 'Capital Federal')
+provincias = provincias.append(caba)
 #print(caba)
 
-catamarca = calcular_tercera_fuerza(pd.read_csv("csv/Catamarca.csv", delimiter=";"))
-catamarca['votos'] = catamarca['votos'] / 327478
-catamarca['Provincia'] = "Catamarca"
+catamarca = calcular_tercera_fuerza(pd.read_csv("csv/Catamarca.csv", delimiter=";", dtype={'votos': int}), 'Catamarca')
 provincias = provincias.append(catamarca)
 #print(catamarca)
 
-chaco = calcular_tercera_fuerza(pd.read_csv("csv/Chaco.csv",delimiter=";"))
-chaco['votos'] = chaco['votos'] / 967147
-chaco['Provincia'] = "Chaco"
+chaco = calcular_tercera_fuerza(pd.read_csv("csv/Chaco.csv", delimiter=";", dtype={'votos': int}), 'Chaco')
 provincias = provincias.append(chaco)
 #print(chaco)
 
-chubut = calcular_tercera_fuerza(pd.read_csv("csv/Chubut.csv",delimiter=";"))
-chubut['votos'] = chubut['votos'] / 448149
-chubut['Provincia'] = "Chubut"
+chubut = calcular_tercera_fuerza(pd.read_csv("csv/Chubut.csv", delimiter=";", dtype={'votos': int}), 'Chubut')
 provincias = provincias.append(chubut)
 #print(chubut)
 
-corrientes = calcular_tercera_fuerza(pd.read_csv("csv/Corrientes.csv",delimiter=";"))
-corrientes['votos'] = corrientes['votos'] / 894376
-corrientes['Provincia'] = "Corrientes"
+corrientes = calcular_tercera_fuerza(pd.read_csv("csv/Corrientes.csv", delimiter=";", dtype={'votos': int}), 'Corrientes')
 provincias = provincias.append(corrientes)
 #print(corrientes)
 
-cordoba = calcular_tercera_fuerza(pd.read_csv("csv/Córdoba.csv",delimiter=";"))
-cordoba['votos'] = cordoba['votos'] / 2984631
-cordoba['Provincia'] = "Córdoba"
+cordoba = calcular_tercera_fuerza(pd.read_csv("csv/Córdoba.csv", delimiter=";", dtype={'votos': int}), 'Córdoba')
 provincias = provincias.append(cordoba)
 #print(cordoba)
 
-entrerios = calcular_tercera_fuerza(pd.read_csv("csv/Entre Ríos.csv",delimiter=";"))
-entrerios['votos'] = entrerios['votos'] / 1112939
-entrerios['Provincia'] = "Entre Ríos"
+entrerios = calcular_tercera_fuerza(pd.read_csv("csv/Entre Ríos.csv", delimiter=";", dtype={'votos': int}), 'Entre Ríos')
 provincias = provincias.append(entrerios)
 #print(entrerios)
 
-formosa = calcular_tercera_fuerza(pd.read_csv("csv/Formosa.csv",delimiter=";"))
-formosa['votos'] = formosa['votos'] / 468299
-formosa['Provincia'] = "Formosa"
+formosa = calcular_tercera_fuerza(pd.read_csv("csv/Formosa.csv", delimiter=";", dtype={'votos': int}), 'Formosa')
 provincias = provincias.append(formosa)
 #print(formosa)
 
-jujuy = calcular_tercera_fuerza(pd.read_csv("csv/Jujuy.csv",delimiter=";"))
-jujuy['votos'] = jujuy['votos'] / 573326
-jujuy['Provincia'] = 'Jujuy'
+jujuy = calcular_tercera_fuerza(pd.read_csv("csv/Jujuy.csv",delimiter=";", dtype={'votos': int}), 'Jujuy')
 provincias = provincias.append(jujuy)
 #print(jujuy)
 
-lapampa = calcular_tercera_fuerza(pd.read_csv("csv/La Pampa.csv",delimiter=";"))
-lapampa['votos'] = lapampa['votos'] / 293790
-lapampa['Provincia'] = "La Pampa"
+lapampa = calcular_tercera_fuerza(pd.read_csv("csv/La Pampa.csv",delimiter=";", dtype={'votos': int}), 'La Pampa')
 provincias = provincias.append(lapampa)
 #print(lapampa)
 
-larioja = calcular_tercera_fuerza(pd.read_csv("csv/La Rioja.csv",delimiter=";"))
-larioja['votos'] = larioja['votos'] / 294509
-larioja['Provincia'] = "La Rioja"
+larioja = calcular_tercera_fuerza(pd.read_csv("csv/La Rioja.csv",delimiter=";", dtype={'votos': int}), 'La Rioja')
 provincias = provincias.append(larioja)
 #print(larioja)
 
-mendoza = calcular_tercera_fuerza(pd.read_csv("csv/Mendoza.csv",delimiter=";"))
-mendoza['votos'] = mendoza['votos'] / 1439463
-mendoza['Provincia'] = "Mendoza"
+mendoza = calcular_tercera_fuerza(pd.read_csv("csv/Mendoza.csv",delimiter=";", dtype={'votos': int}), 'Mendoza')
 provincias = provincias.append(mendoza)
 #print(mendoza)
 
-misiones = calcular_tercera_fuerza(pd.read_csv("csv/Misiones.csv",delimiter=";"))
-misiones['votos'] = misiones['votos'] / 948500
-misiones['Provincia'] = "Misiones"
+misiones = calcular_tercera_fuerza(pd.read_csv("csv/Misiones.csv",delimiter=";", dtype={'votos': int}), 'Misiones')
 provincias = provincias.append(misiones)
 #print(misiones)
 
-neuquen = calcular_tercera_fuerza(pd.read_csv("csv/Neuquén.csv",delimiter=";"))
-neuquen['votos'] = neuquen['votos'] / 526441
-neuquen['Provincia'] = "Neuquén"
+neuquen = calcular_tercera_fuerza(pd.read_csv("csv/Neuquén.csv",delimiter=";", dtype={'votos': int}), 'Neuquén')
 provincias = provincias.append(neuquen)
 #print(neuquen)
 
-rionegro = calcular_tercera_fuerza(pd.read_csv("csv/Río Negro.csv",delimiter=";"))
-rionegro['votos'] = rionegro['votos'] / 560880
-rionegro['Provincia'] = "Río Negro"
+rionegro = calcular_tercera_fuerza(pd.read_csv("csv/Río Negro.csv",delimiter=";", dtype={'votos': int}), 'Río Negro')
 provincias = provincias.append(rionegro)
 #print(rionegro)
 
-salta = calcular_tercera_fuerza(pd.read_csv("csv/Salta.csv",delimiter=";"))
-salta['votos'] = salta['votos'] / 1051142
-salta['Provincia'] = "Salta"
+salta = calcular_tercera_fuerza(pd.read_csv("csv/Salta.csv",delimiter=";", dtype={'votos': int}), 'Salta')
 provincias = provincias.append(salta)
 #print(salta)
 
-sanjuan = calcular_tercera_fuerza(pd.read_csv("csv/San Juan.csv",delimiter=";"))
-sanjuan['votos'] = sanjuan['votos'] / 579913
-sanjuan['Provincia'] = "San Juan"
+sanjuan = calcular_tercera_fuerza(pd.read_csv("csv/San Juan.csv",delimiter=";", dtype={'votos': int}), 'San Juan')
 provincias = provincias.append(sanjuan)
 #print(sanjuan)
 
-sanluis = calcular_tercera_fuerza(pd.read_csv("csv/San Luis.csv",delimiter=";"))
-sanluis['votos'] = sanluis['votos'] / 393472
-sanluis['Provincia'] = "San Luis"
+sanluis = calcular_tercera_fuerza(pd.read_csv("csv/San Luis.csv",delimiter=";", dtype={'votos': int}), 'San Luis')
 provincias = provincias.append(sanluis)
 #print(sanluis)
 
-santacruz = calcular_tercera_fuerza(pd.read_csv("csv/Santa Cruz.csv",delimiter=";"))
-santacruz['votos'] = santacruz['votos'] / 256388
-santacruz['Provincia'] = "Santa Cruz"
+santacruz = calcular_tercera_fuerza(pd.read_csv("csv/Santa Cruz.csv",delimiter=";", dtype={'votos': int}), 'Santa Cruz')
 provincias = provincias.append(santacruz)
 #print(santacruz)
 
-santafe = calcular_tercera_fuerza(pd.read_csv("csv/Santa Fe.csv",delimiter=";"))
-santafe['votos'] = santafe['votos'] / 2768525
-santafe['Provincia'] = "Santa Fe"
+santafe = calcular_tercera_fuerza(pd.read_csv("csv/Santa Fe.csv",delimiter=";", dtype={'votos': int}), 'Santa Fe')
 provincias = provincias.append(santafe)
 #print(santafe)
 
-estero = calcular_tercera_fuerza(pd.read_csv("csv/Santiago del Estero.csv",delimiter=";"))
-estero['votos'] = estero['votos'] / 778455
-estero['Provincia'] = "Santiago del Estero"
+estero = calcular_tercera_fuerza(pd.read_csv("csv/Santiago del Estero.csv",delimiter=";", dtype={'votos': int}), 'Santiago del Estero')
 provincias = provincias.append(estero)
 #print(estero)
 
-fuego = calcular_tercera_fuerza(pd.read_csv("csv/Tierra del Fuego, Antártida e Islas del Atlántico Sur.csv",delimiter=";"))
-fuego['votos'] = fuego['votos'] / 141548
-fuego['Provincia'] = "Tierra del Fuego"
+fuego = calcular_tercera_fuerza(pd.read_csv("csv/Tierra del Fuego, Antártida e Islas del Atlántico Sur.csv",delimiter=";", dtype={'votos': int}), 'Tierra del Fuego')
 provincias =provincias.append(fuego)
 #print(fuego)
 
-tucuman = calcular_tercera_fuerza(pd.read_csv("csv/Tucumán.csv",delimiter=";"))
-tucuman['votos'] = tucuman['votos'] / 1267045
-tucuman['Provincia'] = "Tucumán"
+tucuman = calcular_tercera_fuerza(pd.read_csv("csv/Tucumán.csv",delimiter=";", dtype={'votos': int}), 'Tucumán')
 provincias = provincias.append(tucuman)
 #print(tucuman)
-
-bsas = calcular_tercera_fuerza(bsas)
-bsas['votos'] = bsas['votos'] / 12704518
-bsas['Provincia'] = "Buenos Aires"
-provincias = provincias.append(bsas)
-#print(bs as)
 
 print(provincias)
 
