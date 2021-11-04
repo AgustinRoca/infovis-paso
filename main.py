@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import geojson
 
-def calcular_tercera_fuerza(provincia_df, nombre, electores):
+def calcular_tercera_fuerza(provincia_df, nombre):
     juntos_por_el_cambio = ['JUNTOS',
                             'JUNTOS POR EL CAMBIO TIERRA DEL FUEGO',
                             'CAMBIA SANTA CRUZ',
@@ -26,6 +26,8 @@ def calcular_tercera_fuerza(provincia_df, nombre, electores):
     frente_de_todos = [ 'FRENTE DE TODOS',
                         'FRENTE CIVICO POR SANTIAGO']
 
+    votos_totales = provincia_df.groupby('Agrupacion').sum()['votos'].reset_index(name='votos').sum()['votos']
+    
     provincia_df = provincia_df.loc[  (~provincia_df['Agrupacion'].isin(juntos_por_el_cambio)) & 
                                         (~provincia_df['Agrupacion'].isin(frente_de_todos)) & 
                                         (provincia_df['Agrupacion'] != 'NaN')
@@ -35,7 +37,15 @@ def calcular_tercera_fuerza(provincia_df, nombre, electores):
     provincia_df = provincia_df[my_filter]
 
     provincia_df['Provincia'] = nombre
-    provincia_df['votos'] = provincia_df['votos'] / electores
+    provincia_df['votos'] = provincia_df['votos'] / votos_totales
+    return provincia_df
+
+def calcular_participacion(provincia_df, nombre, electores):
+    votantes = provincia_df.loc[provincia_df['Cargo'] == 'DIPUTADOS NACIONALES'
+                                ].groupby('Agrupacion').sum()['votos'].reset_index(name='votos').sum()['votos']
+
+    provincia_df['Provincia'] = nombre
+    provincia_df['participacion'] = votantes / electores
     return provincia_df
 
 def parse_csvs():
@@ -208,9 +218,9 @@ def grafico_terceras_fuerzas(provincias):
     terceras_fuerzas = None
     for nombre in provincias:
         if terceras_fuerzas is None:
-            terceras_fuerzas = calcular_tercera_fuerza(provincias[nombre]['Data'], nombre, provincias[nombre]['Electores'])
+            terceras_fuerzas = calcular_tercera_fuerza(provincias[nombre]['Data'], nombre)
         else:
-            terceras_fuerzas = terceras_fuerzas.append(calcular_tercera_fuerza(provincias[nombre]['Data'], nombre, provincias[nombre]['Electores']))
+            terceras_fuerzas = terceras_fuerzas.append(calcular_tercera_fuerza(provincias[nombre]['Data'], nombre))
 
     fig = px.choropleth_mapbox(terceras_fuerzas,
                             geojson = gj,
@@ -228,6 +238,36 @@ def grafico_terceras_fuerzas(provincias):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     fig.show()
 
+def grafico_participacion(provincias):
+    with open("geojson/ProvinciasArgentina.geojson", encoding="utf-8") as f:
+        gj = geojson.load(f)
+
+    participacion = None
+    for nombre in provincias:
+        if participacion is None:
+            participacion = calcular_participacion(provincias[nombre]['Data'], nombre, provincias[nombre]['Electores'])
+        else:
+            participacion = participacion.append(calcular_participacion(provincias[nombre]['Data'], nombre, provincias[nombre]['Electores']))
+
+    minima = participacion['participacion'].min()
+    maxima = participacion['participacion'].max()
+    fig = px.choropleth_mapbox(participacion,
+                            geojson = gj,
+                            locations='Provincia',
+                            color='participacion',
+                            color_continuous_scale="Viridis",
+                            range_color=(minima , maxima),
+                            mapbox_style="carto-positron",
+                            zoom=3,
+                            center = {"lat": -38.4, "lon": -63.6},
+                            opacity=0.5,
+                            labels={'participacion':'participacion'},
+                            featureidkey="properties.nombre")
+
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.show()
+
 if __name__ == '__main__':
     provincias = parse_csvs()
     grafico_terceras_fuerzas(provincias)
+    grafico_participacion(provincias)
