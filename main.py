@@ -8,7 +8,6 @@ def calcular_tercera_fuerza(provincia_df, nombre):
                             'JUNTOS POR EL CAMBIO TIERRA DEL FUEGO',
                             'CAMBIA SANTA CRUZ',
                             'JUNTOS POR EL CAMBIO JXC',
-                            'JUNTOS SOMOS RIO NEGRO',
                             'JUNTOS POR EL CAMBIO +',
                             'FRENTE JUNTOS POR EL CAMBIO',
                             'CAMBIA MENDOZA',
