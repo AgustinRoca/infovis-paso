@@ -8,7 +8,8 @@
    "VAMOS CON VOS": 30962
   },
   "ganador": "ECO + VAMOS CORRIENTES",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 1142222
  },
  "San Juan": {
   "votos_nulos": 11151,
@@ -19,7 +20,8 @@
    "JUNTOS POR EL CAMBIO": 142781
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 385008
  },
  "Buenos Aires": {
   "votos_nulos": 393916,
@@ -102,7 +104,8 @@
    "UNION VECINAL SALLIQUELO": 922
   },
   "ganador": "JUNTOS",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 25596952
  },
  "Mendoza": {
   "votos_nulos": 171185,
@@ -119,7 +122,8 @@
    "VERDE": 277853
   },
   "ganador": "CAMBIA MENDOZA",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 5143883
  },
  "Tierra del Fuego, Ant\u00e1rtida e Islas del Atl\u00e1ntico Sur": {
   "votos_nulos": 9256,
@@ -133,7 +137,8 @@
    "SOMOS FUEGUINOS": 11469
   },
   "ganador": "JUNTOS POR EL CAMBIO TIERRA DEL FUEGO",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 101464
  },
  "Santiago del Estero": {
   "votos_nulos": 9490,
@@ -148,7 +153,8 @@
    "UNITE POR LA LIBERTAD Y LA DIGNIDAD": 12419
   },
   "ganador": "FRENTE CIVICO POR SANTIAGO",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 530333
  },
  "Misiones": {
   "votos_nulos": 13267,
@@ -160,7 +166,8 @@
    "LIBERTAD,VALORES Y CAMBIO": 19177
   },
   "ganador": "FRENTE JUNTOS POR EL CAMBIO",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 618267
  },
  "Catamarca": {
   "votos_nulos": 11405,
@@ -180,7 +187,8 @@
    "UNIDOS POR SANTA ROSA": 4891
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 783194
  },
  "La Rioja": {
   "votos_nulos": 6608,
@@ -193,7 +201,8 @@
    "VAMOS LA RIOJA": 40714
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 182167
  },
  "San Luis": {
   "votos_nulos": 11203,
@@ -208,7 +217,8 @@
    "UNI\u00d3N C\u00cdVICA RADICAL": 16277
   },
   "ganador": "UNIDOS POR SAN LUIS",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 264661
  },
  "La Pampa": {
   "votos_nulos": 14726,
@@ -220,7 +230,8 @@
    "SOCIALISTA": 10096
   },
   "ganador": "JUNTOS POR EL CAMBIO",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 398172
  },
  "Tucum\u00e1n": {
   "votos_nulos": 40717,
@@ -235,7 +246,8 @@
    "POL\u00cdTICA OBRERA": 21493
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 1981137
  },
  "C\u00f3rdoba": {
   "votos_nulos": 107586,
@@ -255,7 +267,8 @@
    "UNI\u00d3N POPULAR FEDERAL": 77744
   },
   "ganador": "JUNTOS POR EL CAMBIO",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 3745880
  },
  "Salta": {
   "votos_nulos": 30892,
@@ -270,7 +283,8 @@
    "UNIDOS POR SALTA": 69385
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 605097
  },
  "CABA": {
   "votos_nulos": 63660,
@@ -291,7 +305,8 @@
    "SOCIALISTA AUT\u00c9NTICO": 24641
   },
   "ganador": "JUNTOS POR EL CAMBIO",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 3617507
  },
  "Santa Cruz": {
   "votos_nulos": 10324,
@@ -303,7 +318,8 @@
    "SOMOS ENERG\u00cdA PARA RENOVAR SANTA CRUZ -SER-": 35511
   },
   "ganador": "CAMBIA SANTA CRUZ",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 162025
  },
  "Chaco": {
   "votos_nulos": 20756,
@@ -322,7 +338,8 @@
    "VAMOS CON VOS": 21169
   },
   "ganador": "CHACO CAMBIA + JUNTOS POR EL CAMBIO",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 1151241
  },
  "Entre R\u00edos": {
   "votos_nulos": 30586,
@@ -336,7 +353,8 @@
    "SOCIALISTA": 27808
   },
   "ganador": "JUNTOS POR ENTRE R\u00cdOS",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 800807
  },
  "Jujuy": {
   "votos_nulos": 13500,
@@ -346,7 +364,8 @@
    "FRENTE DE TODOS": 99134
   },
   "ganador": "CAMBIA JUJUY",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 363926
  },
  "Neuqu\u00e9n": {
   "votos_nulos": 25692,
@@ -361,7 +380,8 @@
    "SOCIALISTA": 8040
   },
   "ganador": "MOVIMIENTO POPULAR NEUQUINO",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 393308
  },
  "Santa Fe": {
   "votos_nulos": 193144,
@@ -381,7 +401,8 @@
    "UNITE POR LA LIBERTAD Y LA DIGNIDAD": 95175
   },
   "ganador": "JUNTOS POR EL CAMBIO",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 3512442
  },
  "Chubut": {
   "votos_nulos": 38000,
@@ -393,7 +414,8 @@
    "JUNTOS POR EL CAMBIO CHUBUT": 216184
   },
   "ganador": "JUNTOS POR EL CAMBIO CHUBUT",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 586293
  },
  "Formosa": {
   "votos_nulos": 5347,
@@ -404,7 +426,8 @@
    "PRINCIPIOS Y CONVICCI\u00d3N": 8303
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": false
+  "cambioDePartido": false,
+  "votos_totales": 317396
  },
  "R\u00edo Negro": {
   "votos_nulos": 23091,
@@ -417,6 +440,7 @@
    "SOCIALISTA": 9219
   },
   "ganador": "JUNTOS SOMOS RIO NEGRO",
-  "cambioDePartido": true
+  "cambioDePartido": true,
+  "votos_totales": 376195
  }
 }

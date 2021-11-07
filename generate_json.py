@@ -25,9 +25,11 @@ for p in pathnames:
     votos_nulos = dataset[["votos"]][dataset["tipoVoto"].isin(['nulos'])].sum()
     resultados = dataset[["Agrupacion","votos"]].groupby(["Agrupacion"]).sum()
     ganador = resultados.sort_values("votos",ascending=False).iloc[0].name
+    votos_totales = dataset[["votos"]].sum()
     if p["name"] in d:
         resultads_dict = resultados.to_dict()["votos"]
         d[p["name"]]["votos_nulos"] += votos_nulos.to_dict()["votos"]
+        d[p["name"]]["votos_totales"] += votos_totales.to_dict()["votos"]
         for k in resultads_dict.keys():
             if k in d[p["name"]]["resultados"]:
                 d[p["name"]]["resultados"][k] += resultads_dict[k]
@@ -48,7 +50,8 @@ for p in pathnames:
             "votos_nulos":votos_nulos.to_dict()["votos"],
             "resultados":resultados.to_dict()["votos"],
             "ganador":ganador,
-            "cambioDePartido": ganador == partidos_in_charge[p["name"]]
+            "cambioDePartido": ganador == partidos_in_charge[p["name"]],
+            "votos_totales": votos_totales.to_dict()["votos"]
         }
     for p in resultados.to_dict()["votos"]:
         if p not in partidos:
