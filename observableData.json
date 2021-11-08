@@ -137,7 +137,7 @@
    "SOMOS FUEGUINOS": 11469
   },
   "ganador": "JUNTOS POR EL CAMBIO TIERRA DEL FUEGO",
-  "cambioDePartido": true,
+  "cambioDePartido": false,
   "votos_totales": 101464
  },
  "Santiago del Estero": {
@@ -283,7 +283,7 @@
    "UNIDOS POR SALTA": 69385
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": true,
+  "cambioDePartido": false,
   "votos_totales": 605097
  },
  "CABA": {
