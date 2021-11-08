@@ -22,7 +22,27 @@ library(viridis)
 
 ggplot() +
     geom_polygon(data = tidied_gj, aes( x = long, y = lat, group = group, fill=Posicion), color="white") +
-    scale_fill_viridis(breaks=c(1, 2, 3)) +
+    scale_fill_gradient2(
+  low = gold,
+  mid = silver,
+  high =bronze,
+  midpoint = 2,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+) +
     theme_void() +
     coord_map()
+
+scale_fill_gradient2(
+  low = gold,
+  mid = silver,
+  high =bronze,
+  midpoint = 2,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+)
 
