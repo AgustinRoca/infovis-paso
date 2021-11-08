@@ -35,14 +35,3 @@ ggplot() +
     theme_void() +
     coord_map()
 
-scale_fill_gradient2(
-  low = gold,
-  mid = silver,
-  high =bronze,
-  midpoint = 2,
-  space = "Lab",
-  na.value = "grey50",
-  guide = "colourbar",
-  aesthetics = "fill"
-)
-
