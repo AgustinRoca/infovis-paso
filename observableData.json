@@ -283,7 +283,7 @@
    "UNIDOS POR SALTA": 69385
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": false,
+  "cambioDePartido": true,
   "votos_totales": 605097
  },
  "CABA": {
@@ -426,7 +426,7 @@
    "PRINCIPIOS Y CONVICCI\u00d3N": 8303
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": false,
+  "cambioDePartido": true,
   "votos_totales": 317396
  },
  "R\u00edo Negro": {
