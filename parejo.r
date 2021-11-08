@@ -1,5 +1,4 @@
 data <- read.csv("parejo.csv", sep=";", colClasses=c("ID"="character"))
-print(data)
 
 library("ggplot2")
 theme_set(theme_bw())
@@ -17,7 +16,7 @@ tidied_gj = tidied_gj %>%
 library(viridis)
 
 ggplot() +
-    geom_polygon(data = tidied_gj, aes( x = long, y = lat, group = group, fill=Parejo), color="white") +
+    geom_polygon(data = tidied_gj, aes( x = long, y = lat, group = group, fill=Variedad), color="white") +
     scale_fill_viridis() +
     theme_void() +
     coord_map()
