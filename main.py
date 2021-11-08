@@ -230,7 +230,7 @@ def grafico_terceras_fuerzas(provincias):
                             mapbox_style="carto-positron",
                             zoom=3, hover_name = 'Agrupacion',
                             center = {"lat": -38.4, "lon": -63.6},
-                            opacity=0.5,
+                            opacity=1,
                             labels={'votos':'votos'},
                             featureidkey="properties.nombre")
 
@@ -259,7 +259,7 @@ def grafico_participacion(provincias):
                             mapbox_style="carto-positron",
                             zoom=3,
                             center = {"lat": -38.4, "lon": -63.6},
-                            opacity=0.5,
+                            opacity=1,
                             labels={'participacion':'participacion'},
                             featureidkey="properties.nombre")
 
