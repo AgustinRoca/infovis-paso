@@ -14,10 +14,6 @@ library(dplyr)
 tidied_gj = tidied_gj %>%
     left_join(. , data, by=c("id"="ID"))
 
-bronze <- "#cd7f32"
-silver <- "#C0C0C0"
-gold <- "#d4af37"
-
 library(viridis)
 
 ggplot() +
