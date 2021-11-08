@@ -137,7 +137,7 @@
    "SOMOS FUEGUINOS": 11469
   },
   "ganador": "JUNTOS POR EL CAMBIO TIERRA DEL FUEGO",
-  "cambioDePartido": true,
+  "cambioDePartido": false,
   "votos_totales": 101464
  },
  "Santiago del Estero": {
@@ -426,7 +426,7 @@
    "PRINCIPIOS Y CONVICCI\u00d3N": 8303
   },
   "ganador": "FRENTE DE TODOS",
-  "cambioDePartido": false,
+  "cambioDePartido": true,
   "votos_totales": 317396
  },
  "R\u00edo Negro": {
